@@ -1,21 +1,6 @@
-CREATE DATABASE freedbtech_languagesabc;
+CREATE DATABASE Datos;
 
-USE freedbtech_languagesabc;
-
-DROP TABLE programming_languages;
-CREATE TABLE `programming_languages`
-(
-  `id`            INT(11) NOT NULL ,
-  `name`          VARCHAR(255) NOT NULL ,
-  `released_year` INT NOT NULL ,
-  `githut_rank`   INT NULL ,
-  `pypl_rank`     INT NULL ,
-  `tiobe_rank`    INT NULL ,
-  `created_at`    DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-  `updated_at`    DATETIME on UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-  PRIMARY KEY (`id`),
-  UNIQUE `idx_name_unique` (`name`(255))
-);
+USE Datos;
 
 CREATE TABLE `Usuario`
 (
@@ -26,30 +11,46 @@ CREATE TABLE `Usuario`
   `Correo`        VARCHAR(255) NOT NULL
 );
 
+DROP TABLE Publicacion;
+CREATE TABLE Publicacion (
+`Autor`       INT NOT NULL, 
+`Nombre`       VARCHAR (255),
+`Curso`       VARCHAR (255), 
+`Catedratico` VARCHAR (255),
+`Mensaje`     VARCHAR (255),
+`FechaHora`   DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP PRIMARY KEY,
+ FOREIGN KEY (Autor) REFERENCES Usuario
+(Registro) ON UPDATE CASCADE ON DELETE CASCADE);
+
+CREATE TABLE Comentario (
+`Autor`        VARCHAR (255),
+`Mensaje`      VARCHAR (255),
+`Publicacion`  DATETIME,
+`FechaHora`    DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP PRIMARY KEY,
+ FOREIGN KEY (Publicacion) REFERENCES Publicacion
+(FechaHora) ON UPDATE CASCADE ON DELETE CASCADE);
+
+INSERT INTO Publicacion(Autor,Nombre,Curso,Catedratico,Mensaje) 
+VALUES 
+(201909103,'William Borrayo','Practicas','Herman','una poublicacion');
+
+INSERT INTO Comentario(Autor,Mensaje,Publicacion) 
+VALUES 
+('William Borrayo','Comentario121','2021-03-31 03:01:49');
+/*formato raro date:  2021-03-31T09:01:49.000Z*/
+
 select * from Usuario;
+select * from Publicacion;
+select * from Comentario;
 
-INSERT INTO programming_languages(id,name,released_year,githut_rank,pypl_rank,tiobe_rank) 
-VALUES 
-(1,'JavaScript',1995,1,3,7),
-(2,'Python',1991,2,1,3),
-(3,'Java',1995,3,2,2),
-(4,'TypeScript',2012,7,10,42),
-(5,'C#',2000,9,4,5),
-(6,'PHP',1995,8,6,8),
-(7,'C++',1985,5,5,4),
-(8,'C',1972,10,5,1),
-(9,'Ruby',1995,6,15,15),
-(10,'R',1993,33,7,9),
-(11,'Objective-C',1984,18,8,18),
-(12,'Swift',2015,16,9,13),
-(13,'Kotlin',2011,15,12,40),
-(14,'Go',2009,4,13,14),
-(15,'Rust',2010,14,16,26),
-(16,'Scala',2004,11,17,34);
-
-INSERT INTO programming_languages(id,name,released_year,githut_rank,pypl_rank,tiobe_rank) 
-VALUES 
-(17,'prueba',1995,1,3,7);
-
-select * from programming_languages;
+SELECT 
+    Registro, 
+    Nombres, 
+    Apellidos,
+    Correo
+FROM
+    Usuario
+WHERE
+    Registro = 201909103 AND 
+    Nombres = 'William Alejandro';
 

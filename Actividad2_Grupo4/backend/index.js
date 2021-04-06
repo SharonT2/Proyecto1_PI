@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const port = process.env.PORT || 3000;
-const programmingLanguagesRouter = require('./routes/programmingLanguages');
+const Datos = require('./routes/Datos');
 const cors = require("cors");
 
 app.use(bodyParser.json());
@@ -18,7 +18,7 @@ var corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.use('/', programmingLanguagesRouter);
+app.use('/', Datos);
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {

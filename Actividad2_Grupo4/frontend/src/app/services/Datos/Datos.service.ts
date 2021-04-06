@@ -10,6 +10,15 @@ export class DatosService {
   
   constructor(private http: HttpClient) { }
 
+  IniciarSesion(data):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.post<any>(baseURL + 'IniciarSesion', data, httpOptions);
+  }
+
   Registrar(data):Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
@@ -19,103 +28,50 @@ export class DatosService {
     return this.http.post<any>(baseURL + 'Registrar', data, httpOptions);
   }
 
-  LoadTiendas(data):Observable<any>{
+  GetUsuario(data):Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
     };
-    return this.http.post<any>(baseURL + 'LoadTiendas', data, httpOptions);
+    return this.http.post<any>(baseURL + 'GetUsuario', data, httpOptions);
   }
 
-  GetTiendas():Observable<any>{
+  GetPublicaciones():Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
     };
-    return this.http.get<any>(baseURL + 'GetTiendas', httpOptions);
+    return this.http.get<any>(baseURL + 'GetPublicaciones', httpOptions);
   }
 
-  LoadInventario(data):Observable<any>{
+  Crear(data):Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
     };
-    return this.http.post<any>(baseURL + 'LoadInventario', data, httpOptions);
+    return this.http.post<any>(baseURL + 'Crear', data, httpOptions);
   }
 
-  GetInventario(Busqueda):Observable<any>{
+  Comentar(data):Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
     };
-    return this.http.post<any>(baseURL + 'GetInventario', Busqueda, httpOptions);
+    return this.http.post<any>(baseURL + 'Comentar', data, httpOptions);
   }
 
-  LoadFechas(data):Observable<any>{
+  
+  GetComentarios(data):Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
     };
-    return this.http.post<any>(baseURL + 'LoadFechas', data, httpOptions);
-  }
-
-  GetFechas():Observable<any>{
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
-    return this.http.get<any>(baseURL + 'GetFechas', httpOptions);
-  }
-
-  GetPedidos():Observable<any>{
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
-    return this.http.get<any>(baseURL + 'GetPedidos', httpOptions);
-  }
-
-  Comprar(Producto):Observable<any>{
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
-    return this.http.post<any>(baseURL + 'Comprar', Producto, httpOptions);
-  }
-
-  Devolver(Producto):Observable<any>{
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
-    return this.http.post<any>(baseURL + 'Devolver', Producto, httpOptions);
-  }
-
-  CargarCarro():Observable<any>{
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
-    return this.http.get<any>(baseURL + 'CargarCarro', httpOptions);
-  }
-
-  GenerarPedido(Productos):Observable<any>{
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
-    return this.http.post<any>(baseURL + 'GenerarPedido', Productos, httpOptions);
+    return this.http.post<any>(baseURL + 'GetComentarios', data, httpOptions);
   }
 
 }
