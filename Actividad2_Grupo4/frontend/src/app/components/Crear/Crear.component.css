@@ -1,0 +1,26 @@
+img{
+    width: 390px;
+    aspect-ratio: auto 390 / 150;
+    height: 150px;
+}
+
+body{
+    background-position: right top;
+    background-color: white;
+    background-repeat: no-repeat;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    display: block!important;
+}
+
+h1 {
+    font-family: inherit;
+    text-transform: uppercase;
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+
+div{
+    display: block;
+}
