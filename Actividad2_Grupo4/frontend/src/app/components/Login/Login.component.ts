@@ -85,17 +85,36 @@ export class LoginComponent implements OnInit {
   }
 
   Reestablecer(){
-    
+
     var Cuenta = {
       Contrasenia: this.Contrasenia,
       Registro: this.Registro,
       Correo: this.Correo
     }
-    this.DatosService.Reestablecer(Cuenta).subscribe(() => {
-      alert("Se reestableció contraseña")
+    this.Buscar(Cuenta.Registro,Cuenta.Correo)
+    this.DatosService.Reestablecer(Cuenta).subscribe(() => { 
     }, (err) => {
       alert("No se pudo reestablecer contraseña")
     })
+  }
+
+  //Para validar
+  Buscar(Registro, Correo) {
+    var Busqueda = {
+      Registro: Registro
+    }
+    var Usuario: Usuario = null
+    this.DatosService.Buscar(Busqueda).subscribe(data => {
+      Usuario = data.Usuario;
+      if (Correo!=Usuario.Correo) {
+        alert("Datos Incorrectos")
+      }else if(this.Contrasenia!=""){
+        alert("Se reestableció contraseña")
+      }
+    },
+      error => {
+        console.log(error);
+      });
   }
 
 }

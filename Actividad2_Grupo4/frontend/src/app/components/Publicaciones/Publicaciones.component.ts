@@ -227,7 +227,6 @@ export class PublicacionesComponent implements OnInit {
     }
     var Usuario: Usuario = null
     this.DatosService.Buscar(Busqueda).subscribe(data => {
-      console.log(data);
       Usuario = data.Usuario;
       if (data.Usuario != null) {
         this.OtroRegistro = Usuario.Registro
