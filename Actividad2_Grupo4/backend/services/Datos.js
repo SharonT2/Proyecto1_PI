@@ -1,7 +1,7 @@
 const db = require('./db');
 const config = require('../config');
 
-async function getMultiple(page = 1){
+async function Prueba(page = 1){
   const a="Hola";
   return {a}
 }
@@ -112,26 +112,58 @@ async function GetComentarios(Publicacion){
   }
 }
 
-async function update(id, programmingLanguage){
+async function Actualizar(Cuenta){
   const result = await db.query(
-    `UPDATE programming_languages 
-    SET name=?, released_year=?, githut_rank=?, 
-    pypl_rank=?, tiobe_rank=? 
-    WHERE id=?`, 
+    `UPDATE Usuario 
+    SET Nombres=?, Apellidos=?, Contrasenia=?, Correo=?
+    WHERE
+    Registro = ?;`, 
     [
-      programmingLanguage.name, programmingLanguage.released_year,
-      programmingLanguage.githut_rank, programmingLanguage.pypl_rank,
-      programmingLanguage.tiobe_rank, id
+      Cuenta.Nombres, Cuenta.Apellidos,
+      Cuenta.Contrasenia,Cuenta.Correo,Cuenta.Registro
+    ]
+  );
+  let message = 'Error actualizando perfil';
+  if (result.affectedRows) {
+    message = 'perfil updated successfully';
+  }
+  return {message};
+}
+
+async function Reestablecer(Cuenta){
+  const result = await db.query(
+    `UPDATE Usuario 
+    SET Contrasenia=?
+    WHERE
+    Registro = ? AND 
+    Correo = ?;`, 
+    [
+      Cuenta.Contrasenia, Cuenta.Registro,
+      Cuenta.Correo
     ]
   );
 
-  let message = 'Error in updating programming language';
+  let message = 'Error in updating password';
 
   if (result.affectedRows) {
-    message = 'Programming language updated successfully';
+    message = 'password updated successfully';
   }
 
   return {message};
+}
+
+async function Buscar(Busqueda){
+  const rows = await db.query(
+    `SELECT * FROM Usuario WHERE
+    Registro = ?;`, 
+    [
+      Busqueda.Registro
+    ]
+  );
+  const Usuario = rows[0];
+  return {
+    Usuario
+  }
 }
 
 module.exports = {
@@ -142,6 +174,8 @@ module.exports = {
   Crear,
   Comentar,
   GetComentarios,
-  getMultiple,
-  update
+  Reestablecer,
+  Actualizar,
+  Buscar,
+  Prueba
 }

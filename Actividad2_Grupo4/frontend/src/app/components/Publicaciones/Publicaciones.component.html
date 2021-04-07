@@ -1,0 +1,248 @@
+<!---------------------------------PUBLICACIONES------------------------------------>
+<ng-container *ngIf="Estado==='Publicaciones'">
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #216da3; color:white">
+    <a class="navbar-brand" class="fas fa-user-circle" style="color:white; font-size: large;"> {{Nombre}}</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a class="nav-link" (click)="ACrear()" style="color:white"><i
+              class="fas fa-clipboard-check"></i><span> Publicar</span></a></li>
+        <li class="nav-item"><a class="nav-link" (click)="APerfil()" style="color:white"><i
+              class="fas fa-user-circle"></i><span> Perfil</span></a></li>
+        <li class="nav-item"><a class="nav-link" href="/Login" style="color:white"><i
+              class="fas fa-sign-out-alt"></i><span> Salir</span></a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <h1 style="color:black">Publicaciones</h1>
+  <div>
+    Filtros:
+    <input type="text" name="callback_0" data-validator-event="keyup" value="" placeholder="Curso"
+      style="margin-left: 2%;" [(ngModel)]="CursoFiltro">
+    <input type="text" name="callback_0" data-validator-event="keyup" value="" placeholder="Catedrático"
+      style="margin-left: 2%;" [(ngModel)]="CatedraticoFiltro">
+    <button class="btn btn-success" style="margin-left: 2%;" (click)="Filtrar()">
+      <i>Filtrar</i>
+    </button>
+    <button class="btn btn-info" style="margin-left: 2%;" (click)="Regresar()">
+      <i>Quitar Filtros</i>
+    </button>
+  </div>
+  
+  <div style="margin: auto; margin-left: 7%;">
+  <div class="row" >
+    <ng-container *ngFor="let publicacion of Publicaciones">
+      <div class="Producto">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center"
+          style="color:white">
+          Autor: {{publicacion.Nombre}}<br>
+          Fecha: {{Fecha(publicacion.FechaHora)}}<br>
+          Curso: {{publicacion.Curso}}<br>
+          Catedratico: {{publicacion.Catedratico}}<br>
+        </div>
+        <div class="card-body">
+          <textarea class="form-control input-lg" disabled="true" rows="5">{{publicacion.Mensaje}}   
+        </textarea>
+        </div>
+
+        <div class="card-footer" style="text-align: right;">
+
+          <ng-container *ngIf="publicacion.FechaHora===ComentarPublicacion">
+            <textarea data-validator="required" data-validator-event="keyup" class="form-control input-lg" rows=2
+              placeholder="Comentario" name="callback_0" [(ngModel)]="Comentario">
+             </textarea>
+            <button class="btn btn-danger" style="margin-top: 2%; margin-right: 1%;"
+              (click)="ComentarPublicacion='';VerComentarios=''">
+              <i>Cerrar</i>
+            </button>
+            <button class="btn btn-info" style="margin-top: 2%;" (click)="Comentar(publicacion); 
+            ComentarPublicacion='';VerComentarios=''">
+              <i>Comentar</i>
+            </button>
+          </ng-container>
+
+          <ng-container *ngIf="publicacion.FechaHora===VerComentarios">
+            <div style="text-align: left;" *ngFor="let comentario of Comentarios">
+              Autor: {{comentario.Autor}}<br>
+              Publicado el {{formatDate(comentario.FechaHora)}}<br>
+              <textarea class="form-control input-lg" disabled="true" rows="3">{{comentario.Mensaje}}   
+              </textarea><br><br>
+            </div>
+
+            <button class="btn btn-danger" style="margin-top: 2%; margin-right: 1%;"
+              (click)="ComentarPublicacion='';VerComentarios=''">
+              <i>Cerrar</i>
+            </button>
+          </ng-container>
+
+          <ng-container *ngIf="publicacion.FechaHora!=VerComentarios && publicacion.FechaHora!=ComentarPublicacion">
+            <button class="btn btn-success" style="margin-top: 2%; margin-right: 1%;"
+              (click)="VerComentarios=publicacion.FechaHora; GetComentarios(publicacion.FechaHora)">
+              <i>Ver Comentarios</i>
+            </button>
+            <button class="btn btn-info" style="margin-top: 2%;" (click)="ComentarPublicacion=publicacion.FechaHora">
+              <i>Comentar</i>
+            </button>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+</ng-container>
+
+
+<!-------------------------------------------------CREAR UNA PUBLICACION------------------------------------------------->
+<ng-container *ngIf="Estado==='Crear'">
+  <div class="main-logo-holder">
+    <img class="main-logo" src="assets/img/login-logo.png" width="390px" height="150px" alt="Usac Ingenieria">
+  </div>
+  <div class="Regresar">
+    <button class="btn btn-info" (click)="Regresar()">
+      Regresar
+    </button>
+  </div>
+  <br>
+  <div>
+    <div class="container">
+      <div class="page-header">
+        <h1 class="text-center">Crear Publicación</h1><br>
+      </div>
+
+      <form class="form login col-sm-6 col-sm-offset-3" style="margin: auto;">
+
+        <div class="form-group">
+          <input type="text" name="callback_0" value="" data-validator="required" required=""
+            data-validator-event="keyup" class="form-control input-lg" placeholder="CURSO" autofocus=""
+            [(ngModel)]="Curso">
+        </div>
+
+        <div class="form-group">
+          <input type="text" name="callback_0" value="" data-validator="required" required=""
+            data-validator-event="keyup" class="form-control input-lg" placeholder="CATEDRÁTICO" autofocus=""
+            [(ngModel)]="Catedratico">
+        </div>
+
+        <div class="form-group">
+          <p style="text-align: left;">Mensaje: </p>
+          <textarea data-validator="required" required="" data-validator-event="keyup" class="form-control input-lg"
+            rows=5 placeholder="MENSAJE" name="callback_0" [(ngModel)]="Mensaje">
+          </textarea>
+        </div>
+
+        <div class="form-group">
+          <input name="callback_2" type="submit" role="button" index="0" value="Publicar"
+            class="btn btn-lg btn-block btn-uppercase btn-primary" (click)="Crear()">
+        </div><br>
+
+      </form>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+
+</ng-container>
+
+
+<!-------------------------------------------------PERFIL------------------------------------------------->
+<ng-container *ngIf="Estado==='Perfil'">
+  <div class="main-logo-holder">
+    <img class="main-logo" src="assets/img/login-logo.png" width="390px" height="150px" alt="Usac Ingenieria">
+  </div>
+  <div class="Regresar">
+    <button class="btn btn-info" (click)="Regresar()">
+      Regresar
+    </button>
+  </div>
+  <br>
+  <div>
+    <div class="container" style="margin: auto;">
+      <!-------------------------------------------------MI PERFIL------------------------------------------------->
+      <form class="form login col-sm-6 col-sm-offset-3" style="margin: auto; float:left">
+        <div class="page-header">
+          <h1 class="text-center">Mi Perfil</h1><br>
+        </div>
+        <div class="form-group" style="text-align: left;">
+          Registro:
+          <input type="text" name="callback_0" value="Registro" data-validator-event="keyup"
+            class="form-control input-lg" placeholder="{{Registro}}" [(ngModel)]="Registro" readonly=true disabled="true">
+        </div>
+
+        <div class="form-group" style="text-align: left;">
+          Nombres:
+          <input type="text" name="callback_1" value="Nombres" data-validator-event="keyup"
+            class="form-control input-lg" placeholder="{{Nombres}}" [(ngModel)]="Nombres">
+        </div>
+
+        <div class="form-group" style="text-align: left;">
+          Apellidos:
+          <input type="text" name="callback_2" value="Apellidos" data-validator-event="keyup"
+            class="form-control input-lg" placeholder="{{Apellidos}}" [(ngModel)]="Apellidos">
+        </div>
+
+        <div class="form-group" style="text-align: left;">
+          Contrasenia:
+          <input type="text" name="callback_3" value="Contrasenia" data-validator-event="keyup"
+            class="form-control input-lg" placeholder="{{Contrasenia}}" [(ngModel)]="Contrasenia" type="password">
+        </div>
+
+        <div class="form-group" style="text-align: left;">
+          Correo:
+          <input type="text" name="callback_4" value="Correo" data-validator-event="keyup" class="form-control input-lg"
+            placeholder="{{Correo}}" [(ngModel)]="Correo">
+        </div>
+
+        <div class="form-group">
+          <input name="callback_2" type="submit" role="button" index="0" value="Actualizar"
+            class="btn btn-lg btn-block btn-uppercase btn-primary" (click)="Actualizar()">
+        </div><br>
+
+      </form>
+
+      <!-------------------------------------------------OTRO PERFIL------------------------------------------------->
+      <form class="form login col-sm-6 col-sm-offset-3" style="margin: auto; float:left">
+        <div class="page-header">
+          <h1 class="text-center">Buscar Perfil</h1><br>
+        </div>
+
+        <input type="text" name="callback_0" data-validator-event="keyup" value="" placeholder="Registro"
+          style="margin-left: 2%;" [(ngModel)]="OtroRegistro">
+        <button class="btn btn-success" style="margin-left: 2%;" (click)="Buscar(OtroRegistro)">
+          <i>Buscar</i>
+        </button>
+
+        <div class="form-group" style="text-align: left;">
+          Registro:
+          <input type="text" name="callback_0" value="Registro" data-validator-event="keyup"
+            class="form-control input-lg" placeholder="{{OtroRegistro}}" [(ngModel)]="OtroRegistro" readonly=true>
+        </div>
+
+        <div class="form-group" style="text-align: left;">
+          Nombres:
+          <input type="text" name="callback_1" value="OtroNombres" data-validator-event="keyup"
+            class="form-control input-lg" placeholder="{{OtroNombres}}" [(ngModel)]="OtroNombres" disabled="true">
+        </div>
+
+        <div class="form-group" style="text-align: left;">
+          Apellidos:
+          <input type="text" name="callback_2" value="OtroApellidos" data-validator-event="keyup"
+            class="form-control input-lg" placeholder="{{OtroApellidos}}" [(ngModel)]="OtroApellidos" disabled="true">
+        </div>
+
+        <div class="form-group" style="text-align: left;">
+          Correo:
+          <input type="text" name="callback_4" value="OtroCorreo" data-validator-event="keyup" class="form-control input-lg"
+            placeholder="{{OtroCorreo}}" [(ngModel)]="OtroCorreo" disabled="true">
+        </div>
+      </form>
+    </div>
+
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+
+</ng-container>

@@ -55,11 +55,7 @@ export class LoginComponent implements OnInit {
     }
     this.DatosService.IniciarSesion(Busqueda).subscribe(data => {
       LoginComponent.Usuario = data.Usuario;
-      console.log(data);
-      //console.log(LoginComponent.Usuario.Nombres)
       if(data.Usuario!=null){
-        //alert("Bienvenido "+LoginComponent.Usuario.Nombres)
-        //routerLink="/tutorials/{{ currentTutorial.id }}"
         window.location.href="/Publicaciones/"+LoginComponent.Usuario.Registro
       }else{
         alert("No existe")
@@ -81,16 +77,25 @@ export class LoginComponent implements OnInit {
       Contrasenia: this.Contrasenia,
       Correo: this.Correo
     }
-    this.DatosService.Registrar(Usuario).subscribe((dataList: any) => {
-      console.log(dataList)
+    this.DatosService.Registrar(Usuario).subscribe(() => {
+      alert("Se registró el usuario")
     }, (err) => {
-      console.log("No se pudo registrar el usuario")
+      alert("No se pudo registrar el usuario")
     })
   }
 
-  probar() {
-    alert(this.Nombres)
-    alert(this.Registro)
+  Reestablecer(){
+    
+    var Cuenta = {
+      Contrasenia: this.Contrasenia,
+      Registro: this.Registro,
+      Correo: this.Correo
+    }
+    this.DatosService.Reestablecer(Cuenta).subscribe(() => {
+      alert("Se reestableció contraseña")
+    }, (err) => {
+      alert("No se pudo reestablecer contraseña")
+    })
   }
 
 }

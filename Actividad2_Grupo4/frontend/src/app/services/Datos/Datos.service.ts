@@ -74,4 +74,31 @@ export class DatosService {
     return this.http.post<any>(baseURL + 'GetComentarios', data, httpOptions);
   }
 
+  Reestablecer(data):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.put<any>(baseURL + 'Reestablecer', data, httpOptions);
+  }
+
+  Actualizar(data):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.put<any>(baseURL + 'Actualizar', data, httpOptions);
+  }
+
+  Buscar(data):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.post<any>(baseURL + 'Buscar', data, httpOptions);
+  }
+
 }
