@@ -29,8 +29,15 @@ CREATE TABLE Comentario (
  FOREIGN KEY (Publicacion) REFERENCES Publicacion
 (FechaHora) ON UPDATE CASCADE ON DELETE CASCADE);
 
+CREATE TABLE Curso (
+`Usuario`     INT NOT NULL, 
+`Codigo`      INT,
+`Nombre`      VARCHAR (255),
+`Creditos`    INT,
+ FOREIGN KEY (Usuario) REFERENCES Usuario
+(Registro) ON UPDATE CASCADE ON DELETE CASCADE);
+
 select * from Usuario;
 select * from Publicacion;
 select * from Comentario;
-
-
+select * from Curso;

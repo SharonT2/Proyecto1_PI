@@ -8,6 +8,8 @@
               class="fas fa-clipboard-check"></i><span> Publicar</span></a></li>
         <li class="nav-item"><a class="nav-link" (click)="APerfil()" style="color:white"><i
               class="fas fa-user-circle"></i><span> Perfil</span></a></li>
+        <li class="nav-item"><a class="nav-link" (click)="ACursos()" style="color:white"><i
+          class="fas fa-user-circle"></i><span> Cursos</span></a></li>
         <li class="nav-item"><a class="nav-link" href="/Login" style="color:white"><i
               class="fas fa-sign-out-alt"></i><span> Salir</span></a></li>
       </ul>
@@ -240,6 +242,102 @@
     </div>
 
   </div>
+  <br>
+  <br>
+  <br>
+  <br>
+
+</ng-container>
+
+<!-------------------------------------------------CURSOS------------------------------------------------->
+<ng-container *ngIf="Estado==='Cursos'">
+  <div class="main-logo-holder">
+    <img class="main-logo" src="assets/img/login-logo.png" width="390px" height="150px" alt="Usac Ingenieria">
+  </div>
+  <div class="Regresar">
+    <button class="btn btn-info" (click)="Regresar()">
+      Regresar
+    </button>
+  </div>
+  <br>
+    <div class="container" style="margin: auto;">
+      <!-------------------------------------------------MI USUARIO------------------------------------------------->
+      <form class="form login col-sm-6 col-sm-offset-3" style="margin: auto">
+        <div class="page-header">
+          <h1 class="text-center">Ingresar un Curso Aprobado</h1><br>
+        </div>
+        
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group"><label for="email"><strong>Codigo</strong></label>
+              <select class="form-control form-select" [(ngModel)]="CursoCodigo" name="CursoCodigo" (click)="SeleccionarCurso(CursoCodigo)" >
+                <option *ngFor="let codigo of Codigos" [value]="codigo">{{codigo}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+<!--
+        <div class="form-group" style="text-align: left;">
+          Codigo:
+          <input type="text" name="callback_0" value="Registro" data-validator-event="keyup"
+            class="form-control input-lg" [(ngModel)]="CursoCodigo">
+        </div>
+-->
+        <div class="form-group" style="text-align: left;">
+          Nombre del curso:
+          <input type="text" name="callback_1" value="Nombres" data-validator-event="keyup"
+            class="form-control input-lg" [(ngModel)]="CursoNombre">
+        </div>
+
+        <div class="form-group" style="text-align: left;">
+          Creditos:
+          <input type="text" name="callback_2" value="Apellidos" data-validator-event="keyup"
+            class="form-control input-lg" [(ngModel)]="CursoCreditos">
+        </div>
+
+        <div class="form-group">
+          <input name="callback_2" type="submit" role="button" index="0" value="Agregar"
+            class="btn btn-lg btn-block btn-uppercase btn-primary" (click)="AgregarCurso()">
+        </div><br>
+
+      </form>
+    </div>
+          <!-------------------------------------------------OTRO USUARIO------------------------------------------------->
+          <form class="form login col-sm-6 col-sm-offset-3" style="margin: auto">
+            <div class="page-header">
+              <h1 class="text-center">Buscar Perfil</h1><br>
+            </div>
+    
+            <input type="text" name="callback_0" data-validator-event="keyup" value="" placeholder="Registro"
+              style="margin-left: 2%;" [(ngModel)]="OtroRegistro">
+            <button class="btn btn-success" style="margin-left: 2%;" (click)="GetCursos(OtroRegistro)">
+              <i>Buscar</i>
+            </button>
+            <button class="btn btn-info" style="margin-left: 2%;" (click)="GetCursos(Registro);OtroRegistro=Registro">
+              <i>Ver mis cursos Aprobados</i>
+            </button>
+
+              <form style="margin: auto; background-color: #4884af; margin-top: 2%; padding: 2%; border-radius: 2%; color:white">
+                <h1>Cursos Aprobados</h1>
+                <table class="table table-sm table-hover">
+                  <tbody class="tblbody" style="background-color: white;">
+                    <th>Codigo</th>
+                    <th>Nombre</th>
+                    <th>Creditos</th>
+                    <tr *ngFor="let curso of CursosAprobadosOtro">
+                      <td style="text-align: center;">{{curso.Codigo}}</td>
+                      <td style="text-align: center;">{{curso.Nombre}}</td>
+                      <td style="text-align: center;">{{curso.Creditos}}</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td style="text-align: center;">Total de Créditos: </td>
+                      <td style="text-align: center;">{{Total}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </form>
+          </form>
   <br>
   <br>
   <br>

@@ -101,4 +101,22 @@ export class DatosService {
     return this.http.post<any>(baseURL + 'Buscar', data, httpOptions);
   }
 
+  
+  AgregarCurso(data):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.post<any>(baseURL + 'AgregarCurso', data, httpOptions);
+  }
+
+  GetCursos(data):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.post<any>(baseURL + 'GetCursos', data, httpOptions);
+  }
 }

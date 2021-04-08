@@ -110,5 +110,25 @@ router.post('/Buscar', async function(req, res, next) {
   }
 });
 
+//Ingresar un curso
+router.post('/AgregarCurso', async function(req, res, next) {
+  try {
+    res.json(await Datos.AgregarCurso(req.body));
+  } catch (err) {
+    console.error(`Error agregando curso`, err.message);
+    next(err);
+  }
+});
+
+//Obtener cursos aprobados
+router.post('/GetCursos', async function(req, res, next) {
+  try {
+    res.json(await Datos.GetCursos(req.body));
+  } catch (err) {
+    console.error(`Error obteniendo cursos`, err.message);
+    next(err);
+  }
+});
+
 
 module.exports = router;

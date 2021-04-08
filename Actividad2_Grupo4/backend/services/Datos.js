@@ -39,9 +39,9 @@ async function GetUsuario(Busqueda){
 async function Registrar(Usuario){
   const result = await db.query(
     `INSERT INTO Usuario 
-    (Registro,Nombres, Apellidos, Contrasenia, Correo) 
+    (Registro, Nombres, Apellidos, Contrasenia, Correo) 
     VALUES 
-    (?,?, ?, ?, ?)`, 
+    (?, ?, ?, ?, ?)`, 
     [
       Usuario.Registro,Usuario.Nombres, Usuario.Apellidos,
       Usuario.Contrasenia, Usuario.Correo
@@ -166,6 +166,38 @@ async function Buscar(Busqueda){
   }
 }
 
+async function AgregarCurso(Curso){
+  const result = await db.query(
+    `INSERT INTO Curso 
+    (Usuario, Codigo, Nombre, Creditos) 
+    VALUES 
+    (?, ?, ?, ?)`, 
+    [
+      Curso.Usuario, Curso.Codigo, Curso.Nombre,
+      Curso.Creditos
+    ]
+  );
+  let message = 'No se registró el usuario';
+  if (result.affectedRows) {
+    message = 'Se Registró el usuario';
+  }
+  return {message};
+}
+
+async function GetCursos(Busqueda){
+  const rows = await db.query(
+    `SELECT * FROM Curso WHERE
+    Usuario = ?;`, 
+    [
+      Busqueda.Usuario
+    ]
+  );
+  const Cursos = rows;
+  return {
+    Cursos
+  }
+}
+
 module.exports = {
   IniciarSesion,
   Registrar,
@@ -177,5 +209,7 @@ module.exports = {
   Reestablecer,
   Actualizar,
   Buscar,
+  AgregarCurso,
+  GetCursos,
   Prueba
 }

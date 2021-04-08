@@ -7,7 +7,8 @@ export class Usuario {
     Correo: string
 
     constructor(_Registro: number, _Nombres: string,
-        _Apellidos: string, _Contrasenia:string, _Correo: string) {
+        _Apellidos: string, _Contrasenia:string, 
+        _Correo: string) {
         this.Registro=_Registro
         this.Nombres = _Nombres
         this.Apellidos = _Apellidos
